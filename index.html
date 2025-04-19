@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel = 'stylesheet' type = 'text/css' href = "index.css">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Simple Calculator App</h1>
+    <div class = 'inputContainers'>
+        <form action = "">
+            <label for="inputNum1">Enter the first number</label>
+            <input type = 'number' id = 'inputNum1' class = 'inputbutton inputNum1'><br><br>
+            <label for="inputNum2">Enter the second number</label>
+            <input type = 'number' id = 'inputNum2' class = 'inputbutton inputNum2'><br><br>
+            <input type="submit" value = 'Submit' class = 'submitbutton'>
+        </form>
+    </div>
+    <div class = 'operationContainers'>
+        <button onclick="addOperation()" class = 'operationbutton'>Add</button>
+        <button onclick="subtractOperation()" class = 'operationbutton'>Subtract</button>
+        <button onclick="multiplyOperation()" class = 'operationbutton'>Multiply</button>
+        <button onclick="divideOperation()" class = 'operationbutton'>Divide</button>
+    </div>
+    <div class = 'outputContainer'>
+        <p class = 'ansbox'></p>
+    </div>
+</body>
+<script src="index.js"></script>
+<script>
+
+    function addOperation(){
+        let a = document.getElementById("inputNum1").value;
+        let b = document.getElementById("inputNum2").value;
+        const data = {"num1": a, "num2": b}
+        fetch("http://127.0.0.1:8000/add/", {
+            method: "POST",
+            header: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data),
+        }).then(
+            response => {
+                console.log(response),
+                console.log(response.json())
+            }
+        )
+    }
+</script>
+</html>
