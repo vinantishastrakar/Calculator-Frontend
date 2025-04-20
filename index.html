@@ -14,7 +14,6 @@
             <input type = 'number' id = 'inputNum1' class = 'inputbutton inputNum1'><br><br>
             <label for="inputNum2">Enter the second number</label>
             <input type = 'number' id = 'inputNum2' class = 'inputbutton inputNum2'><br><br>
-            <input type="submit" value = 'Submit' class = 'submitbutton'>
         </form>
     </div>
     <div class = 'operationContainers'>
@@ -30,20 +29,83 @@
 <script src="index.js"></script>
 <script>
 
-    function addOperation(){
+    function addOperation() {
         let a = document.getElementById("inputNum1").value;
         let b = document.getElementById("inputNum2").value;
         const data = {"num1": a, "num2": b}
+
         fetch("http://127.0.0.1:8000/add/", {
             method: "POST",
-            header: {
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data),
+        }).then(
+            (response) => {
+                // console.log(response.json());
+                response.json().then((data) => {
+                    document.querySelector('.ansbox').innerHTML = '<h1>Result : </h1>' + data.result 
+                })
+            }
+        )
+    }
+
+    function subtractOperation() {
+        let a = document.getElementById("inputNum1").value;
+        let b = document.getElementById("inputNum2").value;
+        const data = {"num1": a, "num2": b}
+
+        fetch("http://127.0.0.1:8000/subtract/", {
+            method: "POST", 
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data),
+        }).then(
+            (response) => {
+                response.json().then((data) => {
+                    document.querySelector('.ansbox').innerHTML = '<h1>Result : </h1>' + data.result
+                })
+            }
+        )
+    }
+
+    function multiplyOperation() {
+        let a = document.getElementById("inputNum1").value;
+        let b = document.getElementById("inputNum2").value;
+        const data = {"num1": a, "num2": b}
+
+        fetch("http://127.0.0.1:8000/multiply/", {
+            method: "POST",
+            headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(data),
         }).then(
             response => {
-                console.log(response),
-                console.log(response.json())
+                response.json().then((data) => {
+                    document.querySelector('.ansbox').innerHTML = '<h1>Result : </h1>' + data.result
+                })
+            }
+        )
+    }
+
+    function divideOperation() {
+        let a = document.getElementById("inputNum1").value;
+        let b = document.getElementById("inputNum2").value;
+        const data = {"num1": a, "num2": b}
+
+        fetch("http://127.0.0.1:8000/divide/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data),
+        }).then(
+            response => {
+                response.json().then((data) => {
+                    document.querySelector('.ansbox').innerHTML = '<h1>Result : </h1>' + data.result
+                })
             }
         )
     }
